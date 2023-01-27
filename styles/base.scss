@@ -1,0 +1,39 @@
+// ********** Colours **********
+$blue-color: #2f82ff;
+$gray-color: #f8f8f8;
+
+// ********** Box Shadows **********
+$box-shadow-1: rgba(99, 99, 99, .2) 0px 2px 8px 0px;
+
+// ********** Buttons **********
+.btn_primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: $blue-color;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 2px;
+    font-size: 20px;
+    height: 45px;
+  }
+  .btn_outlined {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 2px;
+    color: $blue-color;
+    background: $gray-color;
+    border: 1px solid $blue-color;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 2px;
+    font-size: 20px;
+    height: 45px;
+
+  }
