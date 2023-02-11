@@ -1,13 +1,12 @@
 import styles from "./styles.module.scss";
-import Ad from "./AdBanner";
+
 import Main from "./Main";
 import Top from "./Top";
 
-export default function index() {
+export default function index({ country }) {
   return (
     <header className={styles.header}>
-      <Ad />
-      <Top />
+      <Top country={country} />
       <Main />
     </header>
   );

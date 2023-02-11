@@ -1,13 +1,18 @@
 import styles from "./styles.module.scss";
 import { MdSecurity } from "react-icons/md";
 import { BsSuitHeart } from "react-icons/bs";
-import { RiAccountPinCircleLine, RiArrowDownFill } from "react-icons/ri";
+import {
+  RiAccountPinCircleLine,
+  RiArrowDownFill,
+  RiSearch2Line,
+} from "react-icons/ri";
 import Link from "next/link";
 import { useState } from "react";
 import UserMenu from "./UserMenu";
+import { useSession } from "next-auth/react";
 
-export default function Top() {
-  const [loggedIn, setLoggedIn] = useState(true);
+export default function Top({ country }) {
+  const { data: session } = useSession();
   const [visible, setVisible] = useState(false);
   return (
     <div className={styles.top}>
@@ -16,11 +21,40 @@ export default function Top() {
         <div>
           <ul className={styles.top__list}>
             <li className={styles.li}>
-              <img
-                src="https://cdn.britannica.com/25/4825-004-F1975B92/Flag-United-Kingdom.jpg"
-                alt=""
-              />
-              <span>United Kingdom / GBP</span>
+              <img src={country.flag} alt="" />
+              <span>{country.name}</span>
+            </li>
+            <li
+              className={styles.li}
+              onMouseOver={() => setVisible(true)}
+              onMouseLeave={() => setVisible(false)}
+            >
+              {session ? (
+                <li className={styles.li}>
+                  <div className={styles.flex}>
+                    <img src={session.user.image} alt="" />
+                    <span>{session.user.name}</span>
+                    <RiArrowDownFill />
+                  </div>
+                </li>
+              ) : (
+                <li className={styles.li}>
+                  <div className={styles.flex}>
+                    <RiAccountPinCircleLine />
+                    <span>Account</span>
+                    <RiArrowDownFill />
+                  </div>
+                </li>
+              )}
+
+              {visible && <UserMenu session={session} />}
+            </li>
+            <li className={styles.li}>
+              <div className={styles.flex}>
+                <RiAccountPinCircleLine />
+                <span>Account</span>
+                <RiArrowDownFill />
+              </div>
             </li>
 
             <li className={styles.li}>
@@ -38,33 +72,6 @@ export default function Top() {
               <span>
                 <Link href="/profile/wishlist">Wishlist</Link>
               </span>
-            </li>
-            <li
-              className={styles.li}
-              onMouseOver={() => setVisible(true)}
-              onMouseLeave={() => setVisible(false)}
-            >
-              {loggedIn ? (
-                <li className={styles.li}>
-                  <div className={styles.flex}>
-                    <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV-REr89iWROi6ScePs5agSIHpG9BPBDDZ_g&usqp=CAU"
-                      alt=""
-                    />
-                    <span>Ben</span>
-                    <RiArrowDownFill />
-                  </div>
-                </li>
-              ) : (
-                <li className={styles.li}>
-                  <div className={styles.flex}>
-                    <RiAccountPinCircleLine />
-                    <span>Account</span>
-                    <RiArrowDownFill />
-                  </div>
-                </li>
-              )}
-              {visible && <UserMenu loggedIn={loggedIn} />}
             </li>
           </ul>
         </div>
